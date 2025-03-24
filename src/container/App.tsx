@@ -1,10 +1,14 @@
 import React from 'react';
+import { Footer, Header } from '../Components/Layout';
+
 
 
 function App() {
   return (
     <div className="text-primary">
-      App
+       <Header/>
+          Main Component
+       <Footer/>
     </div>
   );
 }
