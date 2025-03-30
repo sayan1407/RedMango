@@ -6,7 +6,9 @@ const store = configureStore({
     reducer : {
     menuItemStore : menuItemReducer,
     [menuItemAPI.reducerPath] : menuItemAPI.reducer
-    }
+    },
+    middleware : (getDefaultMiddleware) => 
+        getDefaultMiddleware().concat(menuItemAPI.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>
