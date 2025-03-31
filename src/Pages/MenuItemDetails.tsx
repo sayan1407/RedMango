@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useGetMenuItemByIdQuery } from '../Apis/MenuItemApi';
 
@@ -6,6 +6,13 @@ function MenuItemDetails() {
   const {menuItemId} = useParams();
   const {data,isLoading} = useGetMenuItemByIdQuery(menuItemId);
   const navigate = useNavigate();
+  const [quantity,setQuantity] = useState(1)
+  const handleQuantityChange = (counter : number) => {
+    let newQuantity = quantity + counter;
+     if(newQuantity < 0)
+       newQuantity = 0;
+     setQuantity(newQuantity)
+  }
   if(isLoading)
   {
     return(
@@ -47,11 +54,13 @@ function MenuItemDetails() {
           <i
             className="bi bi-dash p-1"
             style={{ fontSize: "25px", cursor: "pointer" }}
+            onClick={() => handleQuantityChange(-1)}
           ></i>
-          <span className="h3 mt-3 px-3">XX</span>
+          <span className="h3 mt-3 px-3">{quantity}</span>
           <i
             className="bi bi-plus p-1"
             style={{ fontSize: "25px", cursor: "pointer" }}
+            onClick={() => handleQuantityChange(1)}
           ></i>
         </span>
         <div className="row pt-4">
