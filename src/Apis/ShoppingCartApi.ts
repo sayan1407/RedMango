@@ -15,7 +15,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
       
       providesTags : ["ShoppingCarts"]
     }),
-    updateShoppingCart: builder.query({
+    updateShoppingCart: builder.mutation({
         query: ({userId,menuItemId,updateQuantityBy}) => ({
           url : `ShoppingCart`,
           method : "POST",
