@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useGetMenuItemByIdQuery } from '../Apis/MenuItemApi';
 import { useUpdateShoppingCartMutation } from '../Apis/ShoppingCartApi';
 import MainLoader from '../Components/Page/Common/MainLoader';
+import { MiniLoader } from '../Components/Page/Common';
 
 function MenuItemDetails() {
   const {menuItemId} = useParams();
@@ -12,9 +13,9 @@ function MenuItemDetails() {
   const [isCartUpdating,setIsCartUpdating] = useState(false);
   const[addToCart] = useUpdateShoppingCartMutation();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     setIsCartUpdating(true);
-    addToCart({
+    await addToCart({
      userId : "99c41421-020f-4e6b-b9de-afc6052f8d43",
      menuItemId : menuItemId,
      updateQuantityBy: quantity
@@ -81,10 +82,14 @@ function MenuItemDetails() {
         </span>
         <div className="row pt-4">
           <div className="col-5">
+            {isCartUpdating ? (<button className="btn btn-success form-control">
+              <MiniLoader/>
+            </button>) : (
             <button className="btn btn-success form-control"
             onClick={() => handleAddToCart()}>
               Add to Cart
-            </button>
+            </button>)}
+            
           </div>
 
           <div className="col-5 ">
