@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { ShoppingCart } from '../../Pages'
 let logo = require("../../Assets/Images/mango.png")
 
 function Header() {
@@ -24,8 +25,9 @@ function Header() {
         </li>
         <li className="nav-item">
           <NavLink className="nav-link" aria-current="page" to="/shoppingCart">
-          <i className="bi bi-cart"></i>
-
+          <i className="bi bi-cart">
+          </i>
+          
           </NavLink>
         </li>
       
