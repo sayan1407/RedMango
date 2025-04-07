@@ -6,6 +6,7 @@ import { useGetMenuItemsQuery } from '../../../Apis/MenuItemApi';
 import { useDispatch } from 'react-redux';
 import { setMenuItem } from '../../../Storage/Redux/menuItemSlice';
 import { devToolsEnhancer } from '@reduxjs/toolkit/dist/devtoolsExtension';
+import MainLoader from '../Common/MainLoader';
 
 function MenuItemList() {
     //const [menuItems,setMenuItems] = useState<menuItemModel[]>([])
@@ -20,7 +21,7 @@ function MenuItemList() {
     }
   ,[isLoading])
   if(isLoading){
-    return (<div>Losding...</div>)
+    return (<div><MainLoader /></div>)
   }
  return (
    <div className='container row'>

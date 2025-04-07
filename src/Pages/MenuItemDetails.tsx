@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useGetMenuItemByIdQuery } from '../Apis/MenuItemApi';
 import { useUpdateShoppingCartMutation } from '../Apis/ShoppingCartApi';
+import MainLoader from '../Components/Page/Common/MainLoader';
 
 function MenuItemDetails() {
   const {menuItemId} = useParams();
@@ -29,7 +30,9 @@ function MenuItemDetails() {
   if(isLoading)
   {
     return(
-      <div>Loading...</div>
+      <div>
+        <MainLoader/>
+      </div>
     )
   }
   else{
