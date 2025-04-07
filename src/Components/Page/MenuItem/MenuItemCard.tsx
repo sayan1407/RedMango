@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { menuItemModel } from "../../../Interface";
 import { Link } from "react-router-dom";
+import { useUpdateShoppingCartMutation } from "../../../Apis/ShoppingCartApi";
 
 
 interface Props {
   menuItem: menuItemModel;
 }
+
 function MenuItemCard(props: Props) {
+  const[addToCart] = useUpdateShoppingCartMutation();
+   const [isCartUpdating,setIsCartUpdating] = useState(false);
  let imageUrl = require("../../../Assets/Images/".concat(props.menuItem.image))
+ const handleAddToCart = () => {
+  setIsCartUpdating(true);
+  addToCart({
+    userId : "99c41421-020f-4e6b-b9de-afc6052f8d43",
+    menuItemId : props.menuItem.id,
+    updateQuantityBy: 1
+   });
+   setIsCartUpdating(false);
+ }
   return (
     <div className="col-md-4 col-12 p-4">
       <div
@@ -55,6 +68,7 @@ function MenuItemCard(props: Props) {
               outline: "none !important",
               cursor: "pointer",
             }}
+            onClick={()=>handleAddToCart()}
           ></i>
 
           <div className="text-center">

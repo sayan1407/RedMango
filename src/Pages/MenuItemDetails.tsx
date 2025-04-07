@@ -18,6 +18,7 @@ function MenuItemDetails() {
      menuItemId : menuItemId,
      updateQuantityBy: quantity
     })
+    setIsCartUpdating(false);
   }
   const handleQuantityChange = (counter : number) => {
     let newQuantity = quantity + counter;
