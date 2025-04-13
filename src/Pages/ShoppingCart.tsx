@@ -1,5 +1,5 @@
 import React from 'react'
-import { CartSummary } from '../Components/Page/Cart'
+import { CartPickupDetails, CartSummary } from '../Components/Page/Cart'
 
 function ShoppingCart() {
   return (
@@ -8,7 +8,7 @@ function ShoppingCart() {
             <CartSummary />
         </div>
         <div className='col-lg-6 col-12 p-4'>
-            User Details
+            <CartPickupDetails/>
         </div>
     </div>
   )
