@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { cartItemModel } from '../../../Interface'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../Storage/Redux/store'
+import { inputHelper } from '../../../Helper'
 
 function CartPickupDetails() {
     const shoppingCartFromStore : cartItemModel[] = useSelector(
@@ -12,6 +13,17 @@ function CartPickupDetails() {
         noOfItems++;
         grandTotal += item.quantity! * item.menuItem?.price!
     })
+    const inpupts = {
+      name : "",
+      email : "",
+      phoneNumber : ""
+    };
+    const [inputData,setinputData] = useState(inpupts);
+
+    const handleInput = (e : React.ChangeEvent<HTMLInputElement>) => {
+      const tempData = inputHelper(e,inputData);
+      setinputData(tempData);
+    }
   return (
     
     <div className="border pb-5 pt-3">
@@ -27,6 +39,8 @@ function CartPickupDetails() {
           className="form-control"
           placeholder="name..."
           name="name"
+          value={inputData.name}
+          onChange={handleInput}
           required
         />
       </div>
@@ -37,6 +51,8 @@ function CartPickupDetails() {
           className="form-control"
           placeholder="email..."
           name="email"
+          value={inputData.email}
+          onChange={handleInput}
           required
         />
       </div>
@@ -48,6 +64,8 @@ function CartPickupDetails() {
           className="form-control"
           placeholder="phone number..."
           name="phoneNumber"
+          value={inputData.phoneNumber}
+          onChange={handleInput}
           required
         />
       </div>
