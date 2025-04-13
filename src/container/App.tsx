@@ -16,7 +16,7 @@ function App() {
       console.log(data);
       dispatch(setCartItem(data.result?.cartItems));
     }
-  }, [isLoading]);
+  }, [data]);
   return (
     <div className="text-primary">
       <Header />

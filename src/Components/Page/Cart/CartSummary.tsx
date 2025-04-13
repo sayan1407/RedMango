@@ -1,13 +1,45 @@
 import React from 'react'
-import { cartItemModel } from '../../../Interface';
-import { useSelector } from 'react-redux';
+import { cartItemModel, menuItemModel } from '../../../Interface';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../Storage/Redux/store';
+import { deleteFromCart, updateQuantity } from '../../../Storage/Redux/shoppingCartSlice';
+import { useUpdateShoppingCartMutation } from '../../../Apis/ShoppingCartApi';
 
 function CartSummary() {
   const shoppingCartFromStore : cartItemModel[] = useSelector(
-    (state : RootState) => state.shoppingCartStore.cartItem ?? []
+    (state : RootState) => state.shoppingCartStore.cartItems ?? []
   )
+  const dispatch = useDispatch();
+   const [addToCart] = useUpdateShoppingCartMutation();
   let imageUrl = "../../../Assets/Images/"
+  const handleQuantity = async (updateQuantityBy : number,cartItem : cartItemModel) => {
+
+            let updatedQuantity = cartItem.quantity! + updateQuantityBy
+           if((updateQuantityBy === -1 && cartItem.quantity === 1) || updateQuantityBy === 0)
+           {
+            
+            dispatch(deleteFromCart({id : cartItem.id}));
+            await addToCart({
+              userId: "99c41421-020f-4e6b-b9de-afc6052f8d43",
+              menuItemId: cartItem.menuItem?.id,
+              updateQuantityBy: -cartItem.quantity!,
+            });
+  
+           
+           }
+           else{
+          
+            dispatch(updateQuantity({id : cartItem.id, quantity : updatedQuantity}))
+            await addToCart({
+              userId: "99c41421-020f-4e6b-b9de-afc6052f8d43",
+              menuItemId: cartItem.menuItem?.id,
+              updateQuantityBy: updateQuantityBy,
+            });
+  
+           }
+           console.log(cartItem.menuItem?.id)
+           
+  }
   if(!shoppingCartFromStore)
   {
     return (<div>
@@ -50,17 +82,17 @@ function CartSummary() {
                   }}
                 >
                   <span style={{ color: "rgba(22,22,22,.7)" }} role="button">
-                    <i className="bi bi-dash-circle-fill"></i>
+                    <i className="bi bi-dash-circle-fill" onClick={() => handleQuantity(-1,cartItem)}></i>
                   </span>
                   <span>
                     <b>{cartItem.quantity}</b>
                   </span>
                   <span style={{ color: "rgba(22,22,22,.7)" }} role="button">
-                    <i className="bi bi-plus-circle-fill"></i>
+                    <i className="bi bi-plus-circle-fill" onClick={() => handleQuantity(1,cartItem)}></i>
                   </span>
                 </div>
     
-                <button className="btn btn-danger mx-1">Remove</button>
+                <button className="btn btn-danger mx-1" onClick={() => handleQuantity(0,cartItem)}>Remove</button>
               </div>
             </div>
           </div>
