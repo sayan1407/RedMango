@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { menuItemReducer } from "./menuItemSlice";
-import { menuItemAPI, shoppingCartAPI } from "../../Apis";
+import { authAPI, menuItemAPI, shoppingCartAPI } from "../../Apis";
 import { shoppingCartReducer } from "./shoppingCartSlice";
 
 const store = configureStore({
@@ -8,10 +8,12 @@ const store = configureStore({
     menuItemStore : menuItemReducer,
     shoppingCartStore : shoppingCartReducer,
     [menuItemAPI.reducerPath] : menuItemAPI.reducer,
-    [shoppingCartAPI.reducerPath] : shoppingCartAPI.reducer
+    [shoppingCartAPI.reducerPath] : shoppingCartAPI.reducer,
+    [authAPI.reducerPath] : authAPI.reducer
     },
     middleware : (getDefaultMiddleware) => 
-        getDefaultMiddleware().concat(menuItemAPI.middleware).concat(shoppingCartAPI.middleware)
+        getDefaultMiddleware().concat(menuItemAPI.middleware).concat(authAPI.middleware)
+        .concat(shoppingCartAPI.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>
