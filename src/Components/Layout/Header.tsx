@@ -4,12 +4,16 @@ import { ShoppingCart } from '../../Pages'
 import { cartItemModel } from '../../Interface'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../Storage/Redux/store';
+import userModel from '../../Interface/userModel'
 
 let logo = require("../../Assets/Images/mango.png")
 
 function Header() {
   const shoppingCartFromStore : cartItemModel[] = useSelector(
       (state : RootState) => state.shoppingCartStore.cartItems ?? []
+    )
+    const userFromStore : userModel = useSelector(
+      (state : RootState) => state.userAuthStore
     )
   return (
     <div>
@@ -50,7 +54,19 @@ function Header() {
           </ul>
         </li>
         <div className="d-flex" style={{ marginLeft: "auto" }}>
-                <li className="nav-item">
+          {userFromStore.id && <><li className="nav-item">
+                      <button
+                        className="nav-link active"
+                        style={{
+                          cursor: "pointer",
+                          background: "transparent",
+                          border: 0,
+                        }}
+                      >
+                        Welcome, {userFromStore.fullName}
+                      </button>
+                    </li>
+          <li className="nav-item">
                   <button
                     className="btn btn-success btn-outlined rounded-pill text-white mx-2"
                     style={{
@@ -61,7 +77,8 @@ function Header() {
                   >
                     Logout
                   </button>
-                </li>
+                </li></>}
+              {!userFromStore.id && <>
                 <li className="nav-item text-white">
                   <NavLink className="nav-link" to="/register">
                     Register
@@ -80,6 +97,8 @@ function Header() {
                     Login
                   </NavLink>
                 </li>
+              </>}  
+                
               </div>
       </ul>
      

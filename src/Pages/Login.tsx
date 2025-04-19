@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLoggedInUser } from '../Storage/Redux/userAuthSlice';
 import { store } from '../Storage';
 import { RootState } from '../Storage/Redux/store';
+import { useNavigate } from 'react-router-dom';
+import { MiniLoader } from '../Components/Page/Common';
 
 
 function Login() {
@@ -15,6 +17,7 @@ function Login() {
   const [loginUser] = useLoginUserMutation();
   const[error,setError] = useState("");
   const[loading,setLoading] = useState(false);
+  const navigate = useNavigate();
   const[userInput,setUserInput] = useState({
  
     userName : "",
@@ -44,6 +47,7 @@ function Login() {
         }))
           console.log(response);
           console.log(loggedInUser);
+          navigate("/")
       }
       else if(response.error)
       {
@@ -54,6 +58,7 @@ function Login() {
     }
   return (
     <div className="container text-center">
+      {loading && <MiniLoader/>}
     <form method="post" onSubmit={handleSubmit}>
       <h1 className="mt-5">Login</h1>
       <div className="mt-5">
@@ -81,6 +86,7 @@ function Login() {
       </div>
 
       <div className="mt-2">
+      {error && <p className="text-danger">{error}</p>}
         <button
           type="submit"
           className="btn btn-success"
