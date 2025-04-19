@@ -2,8 +2,16 @@ import React, { useState } from 'react'
 import { inputHelper } from '../Helper';
 import { useLoginUserMutation } from '../Apis/AuthApi ';
 import { apiResponse } from '../Interface';
+import jwt_decode from "jwt-decode";
+import userModel from '../Interface/userModel';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoggedInUser } from '../Storage/Redux/userAuthSlice';
+import { store } from '../Storage';
+import { RootState } from '../Storage/Redux/store';
+
 
 function Login() {
+  const dispatch = useDispatch();
   const [loginUser] = useLoginUserMutation();
   const[error,setError] = useState("");
   const[loading,setLoading] = useState(false);
@@ -17,6 +25,7 @@ function Login() {
     const tempData = inputHelper(e,userInput);
     setUserInput(tempData);
   }
+  const loggedInUser = useSelector((store : RootState) => store.userAuthStore.fullName);
   const handleSubmit = async (e : React.ChangeEvent<HTMLFormElement>) => {
       e.preventDefault();
       setLoading(true);
@@ -27,8 +36,14 @@ function Login() {
 
       if(response.data)
       {
-        localStorage.setItem("token",response.data.result!.token);
+        const {token} = response.data.result!;
+        localStorage.setItem("token",token);
+        const {fullName,id,email,role} : userModel = jwt_decode(token)
+        await dispatch(setLoggedInUser({
+          fullName,id,email,role
+        }))
           console.log(response);
+          console.log(loggedInUser);
       }
       else if(response.error)
       {
