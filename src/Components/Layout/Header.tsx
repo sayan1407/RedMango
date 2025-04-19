@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { ShoppingCart } from "../../Pages";
 import { cartItemModel } from "../../Interface";
@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../Storage/Redux/store";
 import userModel from "../../Interface/userModel";
 import { setLoggedInUser } from "../../Storage/Redux/userAuthSlice";
+import jwt_decode from "jwt-decode";
+
 
 let logo = require("../../Assets/Images/mango.png");
 
@@ -28,6 +30,20 @@ function Header() {
       })
     );
   };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const { fullName, id, email, role }: userModel = jwt_decode(token);
+      dispatch(
+        setLoggedInUser({
+          fullName,
+          id,
+          email,
+          role,
+        })
+      );
+    }
+  }, []);
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark ">
@@ -158,3 +174,5 @@ function Header() {
 }
 
 export default Header;
+
+
