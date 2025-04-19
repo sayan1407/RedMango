@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { SD_Role } from '../Utility/SD'
 import { inputHelper } from '../Helper';
+import { useRegisterUserMutation } from '../Apis/AuthApi ';
+import { apiResponse } from '../Interface';
 
 function Register() {
+  const [registerUser] = useRegisterUserMutation();
   const[loading,setLoading] = useState(false);
   const[userInput,setUserInput] = useState({
     name : "",
@@ -14,9 +17,22 @@ function Register() {
     const tempData = inputHelper(e,userInput);
     setUserInput(tempData);
   }
+  const handleSubmit = async (e : React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const response : apiResponse = await registerUser({
+      name : userInput.name,
+      userName : userInput.userName,
+      password : userInput.password,
+      role : userInput.role
+    });
+    console.log(response)
+    setLoading(false);
+  }
+
   return (
     <div className="container text-center">
-    <form method="post">
+    <form method="post" onSubmit={handleSubmit}>
       <h1 className="mt-5">Register</h1>
       <div className="mt-5">
         <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
