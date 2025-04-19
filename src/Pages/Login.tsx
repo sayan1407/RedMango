@@ -24,10 +24,10 @@ function Login() {
         userName : userInput.userName,
         password : userInput.password,
       });
-      console.log(response);
 
       if(response.data)
       {
+        localStorage.setItem("token",response.data.result!.token);
           console.log(response);
       }
       else if(response.error)
