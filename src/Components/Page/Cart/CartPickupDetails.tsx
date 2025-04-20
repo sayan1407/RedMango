@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../Storage/Redux/store'
 import { inputHelper } from '../../../Helper'
 import { MiniLoader } from '../Common'
+import userModel from '../../../Interface/userModel'
 
 function CartPickupDetails() {
     const shoppingCartFromStore : cartItemModel[] = useSelector(
@@ -14,9 +15,11 @@ function CartPickupDetails() {
         noOfItems++;
         grandTotal += item.quantity! * item.menuItem?.price!
     })
+    const loggedInUser : userModel = useSelector((store : RootState) => store.userAuthStore);
+
     const inpupts = {
-      name : "",
-      email : "",
+      name : loggedInUser.fullName,
+      email : loggedInUser.email,
       phoneNumber : ""
     };
     const [inputData,setinputData] = useState(inpupts);
@@ -31,6 +34,7 @@ function CartPickupDetails() {
       e.preventDefault();
       setLoading(true);
     }
+      
   return (
     
     <div className="border pb-5 pt-3">
