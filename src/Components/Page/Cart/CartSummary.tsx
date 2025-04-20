@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../Storage/Redux/store';
 import { deleteFromCart, updateQuantity } from '../../../Storage/Redux/shoppingCartSlice';
 import { useUpdateShoppingCartMutation } from '../../../Apis/ShoppingCartApi';
+import userModel from '../../../Interface/userModel';
+import { log } from 'console';
 
 function CartSummary() {
   const shoppingCartFromStore : cartItemModel[] = useSelector(
@@ -11,7 +13,9 @@ function CartSummary() {
   )
   const dispatch = useDispatch();
    const [addToCart] = useUpdateShoppingCartMutation();
-  let imageUrl = "../../../Assets/Images/"
+  let imageUrl = "../../../Assets/Images/";
+  const loggedInUser : userModel = useSelector((store : RootState) => store.userAuthStore);
+  
   const handleQuantity = async (updateQuantityBy : number,cartItem : cartItemModel) => {
 
             let updatedQuantity = cartItem.quantity! + updateQuantityBy
@@ -20,7 +24,7 @@ function CartSummary() {
             
             dispatch(deleteFromCart({id : cartItem.id}));
             await addToCart({
-              userId: "99c41421-020f-4e6b-b9de-afc6052f8d43",
+              userId: loggedInUser.id,
               menuItemId: cartItem.menuItem?.id,
               updateQuantityBy: -cartItem.quantity!,
             });
@@ -31,7 +35,7 @@ function CartSummary() {
           
             dispatch(updateQuantity({id : cartItem.id, quantity : updatedQuantity}))
             await addToCart({
-              userId: "99c41421-020f-4e6b-b9de-afc6052f8d43",
+              userId: loggedInUser.id,
               menuItemId: cartItem.menuItem?.id,
               updateQuantityBy: updateQuantityBy,
             });

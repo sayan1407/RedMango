@@ -28,7 +28,7 @@ function MenuItemCard(props: Props) {
     }
     setIsCartUpdating(true);
    const response : apiResponse =  await addToCart({
-      userId: "99c41421-020f-4e6b-b9de-afc6052f8d43",
+      userId: loggedInUser.id,
       menuItemId: props.menuItem.id,
       updateQuantityBy: 1,
     });

@@ -2,14 +2,18 @@ import React, { useEffect } from "react";
 import { Footer, Header } from "../Components/Layout";
 import { Routes, Route } from "react-router-dom";
 import { AccessDenied, AdminAuthentication, Home, Login, MenuItemDetails, NotFound, Register, ShoppingCart } from "../Pages";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetShoppingCartQuery } from "../Apis/ShoppingCartApi";
 import { setCartItem } from "../Storage/Redux/shoppingCartSlice";
+import userModel from "../Interface/userModel";
+import { RootState } from "../Storage/Redux/store";
 
 function App() {
   const dispatch = useDispatch();
+  const loggedInUser : userModel = useSelector((store : RootState) => store.userAuthStore);
+  
   const { data, isLoading } = useGetShoppingCartQuery(
-    "99c41421-020f-4e6b-b9de-afc6052f8d43"
+    loggedInUser.id,
   );
   useEffect(() => {
     if (!isLoading) {
