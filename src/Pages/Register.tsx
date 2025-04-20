@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { SD_Role } from '../Utility/SD'
-import { inputHelper } from '../Helper';
+import { inputHelper, toastNotify } from '../Helper';
 import { useRegisterUserMutation } from '../Apis/AuthApi ';
 import { apiResponse } from '../Interface';
 
@@ -26,6 +26,14 @@ function Register() {
       password : userInput.password,
       role : userInput.role
     });
+    if(response.data && response.data.isSuccess)
+    {
+      toastNotify("Registration successfull! Please login to continue");
+    }
+    else if(response.error)
+    {
+      toastNotify(response.error.data.errorMessages[0],"error");
+    }
     console.log(response)
     setLoading(false);
   }

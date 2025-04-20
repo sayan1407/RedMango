@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ShoppingCart } from "../../Pages";
 import { cartItemModel } from "../../Interface";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,7 @@ function Header() {
     (state: RootState) => state.userAuthStore
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleLogOut = () => {
     localStorage.removeItem("token");
     dispatch(
@@ -29,6 +30,8 @@ function Header() {
         role: "",
       })
     );
+    navigate("/login");
+
   };
   useEffect(() => {
     const token = localStorage.getItem("token");

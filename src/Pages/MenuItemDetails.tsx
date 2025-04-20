@@ -4,6 +4,7 @@ import { useGetMenuItemByIdQuery } from '../Apis/MenuItemApi';
 import { useUpdateShoppingCartMutation } from '../Apis/ShoppingCartApi';
 import MainLoader from '../Components/Page/Common/MainLoader';
 import { MiniLoader } from '../Components/Page/Common';
+import { toastNotify } from '../Helper';
 
 function MenuItemDetails() {
   const {menuItemId} = useParams();
@@ -20,6 +21,8 @@ function MenuItemDetails() {
      menuItemId : menuItemId,
      updateQuantityBy: quantity
     })
+   toastNotify("Item has been successfully added to cart")
+    
     setIsCartUpdating(false);
   }
   const handleQuantityChange = (counter : number) => {
