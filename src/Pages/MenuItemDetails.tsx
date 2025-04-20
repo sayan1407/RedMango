@@ -5,6 +5,9 @@ import { useUpdateShoppingCartMutation } from '../Apis/ShoppingCartApi';
 import MainLoader from '../Components/Page/Common/MainLoader';
 import { MiniLoader } from '../Components/Page/Common';
 import { toastNotify } from '../Helper';
+import { useSelector } from 'react-redux';
+import userModel from '../Interface/userModel';
+import { RootState } from '../Storage/Redux/store';
 
 function MenuItemDetails() {
   const {menuItemId} = useParams();
@@ -13,8 +16,14 @@ function MenuItemDetails() {
   const [quantity,setQuantity] = useState(1);
   const [isCartUpdating,setIsCartUpdating] = useState(false);
   const[addToCart] = useUpdateShoppingCartMutation();
-
+  const loggedInUser : userModel = useSelector((store : RootState) => store.userAuthStore);
+ 
   const handleAddToCart = async () => {
+    if(!loggedInUser.id)
+      {
+        navigate("/login");
+        return;
+      }
     setIsCartUpdating(true);
     await addToCart({
      userId : "99c41421-020f-4e6b-b9de-afc6052f8d43",

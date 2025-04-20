@@ -80,7 +80,7 @@ function Header() {
                   to="/shoppingCart"
                 >
                   <i className="bi bi-cart">
-                    {shoppingCartFromStore.length > 0
+                    {userFromStore.id && shoppingCartFromStore.length > 0
                       ? ` (${shoppingCartFromStore.length}) `
                       : ""}
                   </i>
