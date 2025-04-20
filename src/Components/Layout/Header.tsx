@@ -86,6 +86,15 @@ function Header() {
                   </i>
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  aria-current="page"
+                  to="/adminAuthentication"
+                >
+                 Admin Authentication
+                </NavLink>
+              </li>
 
               <li className="nav-item dropdown">
                 <a
