@@ -21,10 +21,15 @@ function Payment() {
       <div className='container m-5 p-5'>
         <div className='row'>
           <div className='col-md-7'>
-            <OrderSummary data={apiResult} userInput = {inputData}/>
+            <OrderSummary data={apiResult} userData = {inputData}/>
           </div>
-          <div className='col-md-5'>
-             <PaymentForm />
+          <div className='col-md-4 offset-md-1'>
+            <h3>Payment</h3>
+            <div className='mt-5'>
+                 <PaymentForm />
+
+            </div>
+             
           </div>
         </div>
 

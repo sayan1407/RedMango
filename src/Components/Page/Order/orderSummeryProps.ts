@@ -1,12 +1,12 @@
-import { shoppingCartModel } from "../../../Interface"
+import { cartItemModel, shoppingCartModel } from "../../../Interface"
 
 export default interface orderSummaryProps {
     data : {
         id : number,
-        cartItems : shoppingCartModel[],
+        cartItems : cartItemModel[],
         cartTotal : number
     },
-    userInput : {
+    userData : {
         email : string,
         name : string,
         phoneNumber : string
