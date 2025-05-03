@@ -1,6 +1,7 @@
 import React from 'react'
+import orderSummaryProps from './orderSummeryProps'
 
-function OrderSummary() {
+function OrderSummary({data,userInput} : orderSummaryProps) {
   return (
     <div>
    

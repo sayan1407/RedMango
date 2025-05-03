@@ -11,6 +11,7 @@ function Payment() {
     state : {apiResult, inputData,orderSummary}
   } = useLocation();
   console.log(apiResult);
+  console.log(inputData);
   const stripePromise = loadStripe('pk_test_51NQ2MqSEMQXGUvnj9f0JFvtNHIHXdIQxqQbSRxQfp78ggsHL8rnfOUA1XmKPF7NGh4tim3zvUIHN1RClIVzLUEIC000bVIF2R5');
   const options = {
     clientSecret : apiResult.clientSecret
@@ -20,7 +21,7 @@ function Payment() {
       <div className='container m-5 p-5'>
         <div className='row'>
           <div className='col-md-7'>
-            <OrderSummary/>
+            <OrderSummary data={apiResult} userInput = {inputData}/>
           </div>
           <div className='col-md-5'>
              <PaymentForm />
