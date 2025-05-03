@@ -7,6 +7,7 @@ import { useGetShoppingCartQuery } from "../Apis/ShoppingCartApi";
 import { setCartItem } from "../Storage/Redux/shoppingCartSlice";
 import userModel from "../Interface/userModel";
 import { RootState } from "../Storage/Redux/store";
+import Payment from "../Pages/Payment";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,8 @@ function App() {
           <Route path="/login" element={<Login/>}></Route>
           <Route path="/accessDenied" element={<AccessDenied/>}></Route>
           <Route path="/adminAuthentication" element={<AdminAuthentication/>}></Route>
+          <Route path="/payment" element={<Payment/>}></Route>
+
 
         </Routes>
       </div>

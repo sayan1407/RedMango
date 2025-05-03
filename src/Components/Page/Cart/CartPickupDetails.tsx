@@ -38,9 +38,10 @@ function CartPickupDetails() {
       e.preventDefault();
       setLoading(true);
       const {data} : apiResponse=  await initiatePayment(loggedInUser.id)
+      //console.log(data)
       const orderSummary = {grandTotal, noOfItems}
       navigate("/payment", {
-        state : {apiResult : data?.result, loggedInUser,orderSummary}
+        state : {apiResult : data?.result, inputData,orderSummary}
       })
     }
       
