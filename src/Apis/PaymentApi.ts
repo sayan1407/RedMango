@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
- const paymentAPI = createApi({
+ const paymentAPI =  createApi({
   reducerPath: "paymentAPI",
   baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:44307/api/" }),
   tagTypes : ["Payments"],
