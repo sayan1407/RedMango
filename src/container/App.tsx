@@ -8,6 +8,7 @@ import { setCartItem } from "../Storage/Redux/shoppingCartSlice";
 import userModel from "../Interface/userModel";
 import { RootState } from "../Storage/Redux/store";
 import Payment from "../Pages/Payment";
+import OrderConfirmed from "../Pages/Order/OrderConfirmed";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ function App() {
           <Route path="/accessDenied" element={<AccessDenied/>}></Route>
           <Route path="/adminAuthentication" element={<AdminAuthentication/>}></Route>
           <Route path="/payment" element={<Payment/>}></Route>
+           <Route path="/order/orderConfirmed/:id" element={<OrderConfirmed/>}></Route>
 
 
         </Routes>

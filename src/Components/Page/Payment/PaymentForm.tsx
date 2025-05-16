@@ -8,8 +8,10 @@ import { toastNotify } from "../../../Helper";
 import { orderSummaryProps } from "../Order";
 import { apiResponse, cartItemModel } from "../../../Interface";
 import { useCreateOrderMutation } from "../../../Apis/OrderApi";
+import { useNavigate } from "react-router-dom";
 
 const PaymentForm = ({ data, userData }: orderSummaryProps) => {
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -81,14 +83,24 @@ const PaymentForm = ({ data, userData }: orderSummaryProps) => {
           totalItems : totalItems,
           orderDetails: orderDetailsDTO
       })
-      console.log(response);
+      if(response)
+      {
+        if(response.data?.result?.status == "CONFIRMED")
+        {
+             navigate(`/order/orderConfirmed/${response.data?.result?.orderHeaderId}`);
+        }
+
+      }
+      setIsProcessing(false)
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
-      <button className="btn btn-success mt-5 w-100">Submit</button>
+      <button disabled={isProcessing} className="btn btn-success mt-5 w-100">
+       {isProcessing ? "Processing..." : "Submit" }
+      </button>
     </form>
   );
 };
