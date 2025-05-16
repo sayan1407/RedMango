@@ -4,7 +4,9 @@ export default interface orderSummaryProps {
     data : {
         id : number,
         cartItems : cartItemModel[],
-        cartTotal : number
+        cartTotal : number,
+        stripePaymentIntentID : string,
+        userID : string
     },
     userData : {
         email : string,

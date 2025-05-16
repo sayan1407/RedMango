@@ -26,7 +26,7 @@ function Payment() {
           <div className='col-md-4 offset-md-1'>
             <h3>Payment</h3>
             <div className='mt-5'>
-                 <PaymentForm />
+                 <PaymentForm data={apiResult} userData = {inputData}/>
 
             </div>
              
