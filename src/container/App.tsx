@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Footer, Header } from "../Components/Layout";
 import { Routes, Route } from "react-router-dom";
-import { AccessDenied, AdminAuthentication, Home, Login, MenuItemDetails, NotFound, Register, ShoppingCart } from "../Pages";
+import { AccessDenied, AdminAuthentication, Home, Login, MenuItemDetails, MyOrders, NotFound, Register, ShoppingCart } from "../Pages";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetShoppingCartQuery } from "../Apis/ShoppingCartApi";
 import { setCartItem } from "../Storage/Redux/shoppingCartSlice";
@@ -40,7 +40,8 @@ function App() {
           <Route path="/accessDenied" element={<AccessDenied/>}></Route>
           <Route path="/adminAuthentication" element={<AdminAuthentication/>}></Route>
           <Route path="/payment" element={<Payment/>}></Route>
-           <Route path="/order/orderConfirmed/:id" element={<OrderConfirmed/>}></Route>
+          <Route path="/order/orderConfirmed/:id" element={<OrderConfirmed/>}></Route>
+          <Route path="/order/myorders" element={<MyOrders/>}></Route>
 
 
         </Routes>
