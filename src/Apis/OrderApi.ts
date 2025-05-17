@@ -12,13 +12,34 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
         method : "POST",
         body : orderDetails
       }),
-      
+      invalidatesTags: ["Orders"]
+      }),
+    getOrders: builder.query({
+      query : (userId) => ({
+        url: "Order",
+        method: "GET",
+        params: {
+          userID : userId
+        }
+        
+      }),
+      providesTags: ["Orders"]
+    }),
+    getOrdersById: builder.query({
+      query : (id) => ({
+        url: `Order/${id}`,
+        method: "GET",
+        
+      }),
+      providesTags: ["Orders"]
     })
+      
+    
    
    
   }),
 });
-export const { useCreateOrderMutation
+export const { useCreateOrderMutation,useGetOrdersQuery,useGetOrdersByIdQuery
  } = orderAPI;
 
  export default orderAPI;
